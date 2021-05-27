@@ -3,6 +3,7 @@
 % \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
 \usepackage[]{titlesec}
 \usepackage[]{amsmath}
+\usepackage[]{hyperref}
 
 \setlength{\parindent}{0pt}
 \renewcommand{\indent}{\hspace{3ex}}
@@ -11,10 +12,16 @@
 	{\normalfont\Large\bfseries}{\thesection}{1em}{}[{\titlerule}]
 \titleformat{\subsection}
 	{\normalfont\large\bfseries}{$\bullet$}{1ex}{}
+\hypersetup{
+  colorlinks   = true,    % Colours links instead of ugly boxes
+  urlcolor     = blue,    % Colour for external hyperlinks
+  linkcolor    = blue,    % Colour of internal links
+  citecolor    = red      % Colour of citations
+}
 
 \renewcommand{\maketitle}{
 	\begin{center}
-		\huge\bfseries{Properties of Motion\\ in Central Force}
+		\huge\bfseries{Properties of Motion\\in Central Force}
 	\end{center}
 	\bigskip
 }
@@ -28,18 +35,19 @@
 \newcommand{\ddtII}[1]{\frac{d^2#1}{dt^2}}
 \newcommand{\ddth}[1]{\frac{d#1}{d\theta}}
 \newcommand{\ddthII}[1]{\frac{d^2#1}{d\theta^2}}
+\newcommand{\Lagr}{\mathcal{L}}
 
 \begin{document}
 \maketitle
 
 \section{Definition}\label{definition}
 
-\indent In classical mechanics, a central force on a particle is a force that is directed towards or away from a point called center of force. We will add another condition for convenience. The magnitude of the force only depends on the distance between that point and the particle.
+\indent In classical mechanics, a central force on a particle is a force that is directed towards or away from a point called the center of force. Here we will add another condition for convenience. The magnitude of the force only depends on the distance between that point and the particle.
 \[ \vec{F}(\r) = F(r) \ru \labelthis{eq:def central force} \]
 
 Where,
 \begin{itemize}
-	\item $\r$ is the vector pointing from center of force to the particle.
+	\item $\r$ is the vector pointing from the center of force to the particle.
 	\item $\vec{F}(\r)$ is the central force.
 	\item $r$ is the magnitude of $\r$
 	\item $F(r)$ is the magnitude of the central force.
@@ -51,7 +59,7 @@ Using Newton's 3rd law,
 
 \section{Potential energy function}\label{potential energy}
 
-Central force is a conservative force. This follows any of the following facts.
+Central force is a conservative force. This follows from the following facts.
 \[ \nabla \times f(r) \ru = \mathbf{0} \hspace{2em} \nabla \phi(r) = \phi^{'}(r) \ru \]
 Thus, we can choose any particular anti derivative of $- F(r)$ to be the potential function. Usually it is chosen such that any constant term vanishes.
 \[ U = \int - F(r) \, dr \labelthis{eq:potential energy} \]
@@ -62,13 +70,14 @@ We could've also tried solving for the work done by evaluating $\int \vec{F}(\r)
 
 \indent Central force causes the motion of the particle to be constrained within a flat two dimensional plane. A not so rigorous proof is given below.
 
-\indent Let us imagine a particle starting from the position $\r_0$ with velocity $\v_0$. After a small time $\Delta t$ the particle moves to $\r_1 = \r_0 + \v_0 \, \Delta t$ which lies in the plane created by the span of $\r_0$ and $\v_0$ (let's call this RV plane). At $\r_1$ the velocity changes to $\v_1 = \v_0 + f(r_0) \, {\r_0}/{r_0} \, \Delta t$ which also lies in RV plane. Thus $ \r_2, \r_3, \dots, \r_n$ and $ \v_2, \v_3, \dots, \v_n$ also lies in RV plane. This results in the whole motion being constrained within a 2D flat plane.
+\indent Let us imagine a particle starting from the position $\r_0$ with velocity $\v_0$. After a small time $\Delta t$ the particle moves to $\r_1 = \r_0 + \v_0 \, \Delta t$ which lies in the plane created by the span of $\r_0$ and $\v_0$ (let's call this RV plane). After reaching $\r_1$ the velocity changes to $\v_1 = \v_0 + f(r_0) \, {\r_0}/{r_0} \, \Delta t$ which also lies in the RV plane. Repeating this process $n$ times we can conclude that $ \r_2, \r_3, \dots, \r_n$ and $ \v_2, \v_3, \dots, \v_n$ also lies in the RV plane. This results in the whole motion being constrained within a 2D flat plane.
 
 \indent For the 3 dimensional case the proof is a bit easier and a bit more rigorous as we can just show that the angular momentum is constant.
-\[ \ddt{\vec{L}} = \ddt{} (\r \times m \v) = \r \times \vec{F} = \mathbf{0} \]
+\[ \ddt{\vec{L}} = \ddt{} (\r \times m \v) = \r \times \vec{F} = \mathbf{0} \labelthis{eq:conserv L vec analysis} \]
+
 \section{Equation of motion in central force}\label{equation of motion}
 
-\indent Motion in central force is contained within a 2D plane. So we are going to choose the polar coordinate system for calculations as it is much easier to express the central force in polar coordinates and we won't need to deal with any unnecessary coordinates.
+\indent Motion in central force is contained within a 2D plane. So, we are going to choose the polar coordinate system for calculations as it is much easier to express the central force in polar coordinates and we won't need to deal with any unnecessary coordinates.
 
 \subsection{Using vector analysis and calculus}\label{eom vector calculus}
 
@@ -91,44 +100,47 @@ Substituting the value of $d\ru/dt$ into~\eqref{eq:ddtIIrmag},
 																					= \frac{{v_\bot}^2}{r} + f(r) \]
 \[ \tag{$v_\bot$ is the perpendicular component of $\v$ wrt $\r$} \]
 
-\noindent But $v_\bot = \dot{\theta} r$. Where $\dot{\theta}$ is the limit of the ratio of the angle between two consecutive $\r$ to the time difference as the time difference goes to $0$.  For the polar coordinate system $\dot{\theta}$ is simply the time derivative of $\theta$.  Thus,
+But $v_\bot = \dot{\theta} r$. Where $\dot{\theta}$ is the limit of the ratio of the angle between two consecutive $\r$ to the time difference as the time difference goes to $0$.
+\[ \dot{\theta} = \lim_{\Delta t \to 0} \frac{\text{angle}(\r(t), \, \r(t + \Delta t))}{\Delta t} \]
+For the polar coordinate system $\dot{\theta}$ is simply the time derivative of $\theta$.  Thus,
 \[ \ddtII{r} = \dot{\theta}^2 \, r + f(r) \labelthis{eq:eom} \]
 
 \subsection{Using lagrangian mechanics}\label{eom lagrangian}
+
 \indent Let $T$ be the kinetic energy and $U$ be the potential energy of the particle experiencing the central force $\vec{F}(\r)$.
 \begin{align}
 	T &= \frac{1}{2} m \left\{ \dot{r}^2 + {(r \dot{\theta})}^2 \right\} \label{kinetic energy} \\
 	U &= \int -F(r) \, dr = - m \int f(r) \, dr \nonumber \tag*{[from~\eqref{eq:potential energy}]}
 \end{align}
 
-Then the lagrangian $L$ is,
-\[ L = T - U = \frac{1}{2} \, m \left( \dot{r}^2 + r^2 \dot{\theta}^2 \right) + m \int f(r) \, dr 
+Then the lagrangian $\Lagr$ is,
+\[ \Lagr = T - U = \frac{1}{2} \, m \left( \dot{r}^2 + r^2 \dot{\theta}^2 \right) + m \int f(r) \, dr 
 																					\labelthis{eq:lagrangian} \]
 
 The Euler-Lagrange equations state that,
-\[	\ddt{} \frac{\partial L}{\partial \dot{r}} = \frac{\partial L}{\partial r} \hspace{3em}
-\ddt{} \frac{\partial L}{\partial \dot{\theta}} = \frac{\partial L}{\partial \theta} \]
+\[	\ddt{} \frac{\partial \Lagr}{\partial \dot{r}} = \frac{\partial \Lagr}{\partial r} \hspace{4ex}
+\ddt{} \frac{\partial \Lagr}{\partial \dot{\theta}} = \frac{\partial \Lagr}{\partial \theta} \]
 
-Substituting for $L$ in the above equations we get,
-\begin{align*}
-	&\ddtII{r} = \dot{\theta}^2 r + f(r) \\
-	&\ddt{} (m r^2 \dot{\theta}) = 0
-\end{align*}
+Substituting for $\Lagr$ in the above equations we get,
+\begin{align}
+	&\ddtII{r} = \dot{\theta}^2 r + f(r) \nonumber \\
+	&\ddt{} (m r^2 \dot{\theta}) = 0 \labelthis{eq:conserv L lagrangian}
+\end{align}
 
 The first equation is the same as~\eqref{eq:eom} and the second one is just stating the conservation of angular momentum.
 
 \section{Shape of the traced path}\label{shape of path}
 
-\indent To know the shape of the curve traced by $\r$ we need to determine the relationship of $r$ with $\theta$. Hence we have to convert the derivatives of $t$ in~\eqref{eq:eom} to the derivatives of $\theta$ or make them functions of $r$ or $\theta$.
+\indent To know the shape of the curve traced by $\r$ we need to determine the relationship of $r$ with $\theta$. Hence, we have to convert the derivatives of $t$ in~\eqref{eq:eom} to the derivatives of $\theta$ or make them functions of $r$ or $\theta$.
 \[ \ddt{r} = \frac{d r}{d\theta} \, \dot{\theta} \]
 
 Differentiating again we get,
 \[ \ddtII{r} = \ddthII{r} \, \dot{\theta}^2 + \ddth{r} \, \ddot{\theta} \]
 
-Angular momentum is polar coordinate is $L = m r^2 \dot{\theta}$. Then,
+Angular momentum in polar coordinates is $L = m r^2 \dot{\theta}$. Then,
 \[ \dot{\theta} = \frac{L}{m r^2} = \frac{h}{r^2} \labelthis{eq:ddttheta} \]
 
-The angular momentum is conserved for central force. So differentiating both sides,
+The angular momentum is conserved for central force. Differentiating both sides,
 \[ \ddot{\theta} = - \frac{2h}{r^3} \ddth{r} \, \dot{\theta} = - \frac{2h^2}{r^5} \ddth{r} \]
 
 Using the values of $\dot{\theta}$, $\ddot{\theta}$ and $d^2 r/dt^2$ we can finally
@@ -136,11 +148,12 @@ write~\eqref{eq:eom} in terms of $r$ and $\theta$.
 \[ \ddthII{r} {\left( \frac{h}{r^2} \right)}^2 + \ddth{r} \left( - \frac{2h^2}{r^5} \ddth{r} \right)
 = {\left( \frac{h}{r^3} \right)}^2 r + f(r) \labelthis{eq:messy eqn}\]
 
-\indent This is one messy equation. But differential equations are messy. Maybe we can get a simpler equation if we use some other variables instead of $r$ and $\theta$?
-Let us take a hint from the gravitaional field. We know that the planets follow an elliptical path.  The equation of a elipse in Polar coordinates is given by,
+\medskip
+This is one messy equation. But differential equations are messy. Maybe we can get a simpler equation if we use some other variables instead of $r$ and $\theta$?
+Let us take a hint from the gravitaional field. We know that the planets follow an elliptical path.  The equation of an ellipse in polar coordinates is given by,
 \[ r = \frac{k}{1 + e \cos{\theta}} \]
 
-From this we can observe that $1/r$ and $\cos{\theta}$ has a linear relationship. These kind of relationships are possible as a solution of linear differential equations. Thus let us choose our new variable $u = 1/r$. Then,
+From this we can observe that $1/r$ and $\cos{\theta}$ has a linear relationship. These kind of relationships are often seen as a solution of linear differential equations. Thus, let us choose our new variable $u = 1/r$. Then,
 \begin{align*}
 	\ddth{u} 	&= \frac{-1}{r^2} \ddth{r} \\
 	\ddthII{u}  &= \frac{2}{r^2} {\left( \ddth{r} \right)}^2 - \frac{1}{r^2} \ddthII{r}
@@ -150,7 +163,19 @@ If we notice carefully we can see hints of ${d^2 u}/{{d\theta}^2}$ in~\eqref{eq:
 \[ \frac{-h^2}{r^2} \left( - \frac{1}{r^2} \ddth{r} + \frac{2}{r^2} \ddthII{r}^2 \right)
 	= \frac{h^2}{r^5} + f(r) \]
 
-The parts inside the parenthesis is exactly ${d^2 u}/{{d\theta}^2}$. After rearranging some terms we arrive at,
+	The parts inside the parenthesis is exactly ${d^2 u}/{{d\theta}^2}$. After rearranging some terms we finally arrive at,
 \[ \ddthII{u} + u = - \frac{1}{h^2 u^2} \, f(1/u) \labelthis{eq:eomII} \]
+
+For graviational field the right side of the equation simply becomes a constant and the equation becomes a linear differential equation. Solving it will give the equation of a conic section.
+
+\section{Conserved quantities}\label{conserved quantities}
+
+\indent Motion under central force conserves the angular momentum $\vec{L}$ and the total energy $E$. Both of these can be easily proven using lagrangian mechanics. We will use the results from Subsection~\ref{eom lagrangian}.
+\begin{itemize}
+	\item Independence of the lagrangian $\Lagr$ from $\theta$ (rotational symmetry) results in the conservation of angular momentum.
+	\item There is no time dependence of the lagrangian. Thus, the total energy (the hamiltonian) $E$ is conserved.
+\end{itemize}
+
+\indent These can also be proven using equation~\eqref{eq:potential energy} and~\eqref{eq:conserv L vec analysis}.
 
 \end{document}
