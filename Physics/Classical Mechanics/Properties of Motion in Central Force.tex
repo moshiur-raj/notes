@@ -1,23 +1,17 @@
-\documentclass[a4paper, 10pt]{article}
-
-% \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
-\usepackage[]{titlesec}
-\usepackage[]{amsmath}
-\usepackage[]{hyperref}
+\documentclass[a4paper, 12pt]{article}
 
 \setlength{\parindent}{0pt}
 \renewcommand{\indent}{\hspace{3ex}}
+\newcommand\labelthis[1]{\addtocounter{equation}{1}\tag{\theequation}\label{#1}}
 
-\titleformat{\section}
-	{\normalfont\Large\bfseries}{\thesection}{1em}{}[{\titlerule}]
-\titleformat{\subsection}
-	{\normalfont\large\bfseries}{$\bullet$}{1ex}{}
-\hypersetup{
-  colorlinks   = true,    % Colours links instead of ugly boxes
-  urlcolor     = blue,    % Colour for external hyperlinks
-  linkcolor    = blue,    % Colour of internal links
-  citecolor    = red      % Colour of citations
-}
+\usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+\usepackage{fancyhdr}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{1.2pt}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyfoot[R]{page \thepage}
 
 \renewcommand{\maketitle}{
 	\begin{center}
@@ -25,8 +19,22 @@
 	\end{center}
 	\bigskip
 }
-\newcommand\labelthis[1]{\addtocounter{equation}{1}\tag{\theequation}\label{#1}}
 
+\usepackage{titlesec}
+\titleformat{\section}
+	{\normalfont\Large\bfseries}{\thesection}{1em}{}[{\titlerule}]
+\titleformat{\subsection}
+	{\normalfont\large\bfseries}{$\bullet$}{1ex}{}
+
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks   = true,
+  urlcolor     = blue,
+  linkcolor    = blue,
+  citecolor    = red
+}
+
+\usepackage{amsmath}
 \renewcommand{\r}{\mathbf{r}}
 \newcommand{\ru}{\mathbf{r_1}}
 \renewcommand{\v}{\mathbf{v}}
@@ -79,9 +87,33 @@ We could've also tried solving for the work done by evaluating $\int \vec{F}(\r)
 
 \indent Motion in central force is contained within a 2D plane. So, we are going to choose the polar coordinate system for calculations as it is much easier to express the central force in polar coordinates and we won't need to deal with any unnecessary coordinates.
 
+\subsection{Using lagrangian mechanics}\label{eom lagrangian}
+
+\indent Let $\theta$ be the angle $\r$ makes with the $+x$ axis (counter clockwise is positive), $T$ be the kinetic energy and $U$ be the potential energy of the particle experiencing the central force $\vec{F}(\r)$.
+\begin{align}
+	T &= \frac{1}{2} m \left\{ \dot{r}^2 + {(r \dot{\theta})}^2 \right\} \label{kinetic energy} \\
+	U &= \int -F(r) \, dr = - m \int f(r) \, dr \nonumber \tag*{[from~\eqref{eq:potential energy}]}
+\end{align}
+
+Then the lagrangian $\Lagr$ is,
+\[ \Lagr = T - U = \frac{1}{2} \, m \left( \dot{r}^2 + r^2 \dot{\theta}^2 \right) + m \int f(r) \, dr 
+																					\labelthis{eq:lagrangian} \]
+
+The Euler-Lagrange equations state that,
+\[	\ddt{} \frac{\partial \Lagr}{\partial \dot{r}} = \frac{\partial \Lagr}{\partial r} \quad\text{and}\quad
+\ddt{} \frac{\partial \Lagr}{\partial \dot{\theta}} = \frac{\partial \Lagr}{\partial \theta} \]
+
+Substituting for $\Lagr$ in the above equations we get,
+\begin{align}
+	&\ddtII{r} = \dot{\theta}^2 r + f(r) \labelthis{eq:eom} \\
+	&\ddt{} (m r^2 \dot{\theta}) = 0 \labelthis{eq:conserv L lagrangian}
+\end{align}
+
+The first equation is the equation of motion for the particle and the second one is just stating the conservation of angular momentum.
+
 \subsection{Using vector analysis and calculus}\label{eom vector calculus}
 
-\indent Let $\theta$ be the angle $\r$ makes with the $+x$ axis (counter clockwise is positive). Newton's third law has second derivative of $\r$ in cartesian coordinates. So, we should start with evaluating the second derivatives of $r$ in terms of $\r$ and see what we can do with it.
+\indent Newton's third law has second derivative of $\r$ in cartesian coordinates. So, we should start with evaluating the second derivatives of $r$ in terms of $\r$ and see what we can do with it.
 
 \medskip Differentiating both sides of the identity $r^2 = \r \cdot \r$,
 \[ \ddt{r} = \ru \cdot \ddt{\r} \labelthis{eq:ddtrmag} \]
@@ -103,31 +135,18 @@ Substituting the value of $d\ru/dt$ into~\eqref{eq:ddtIIrmag},
 But $v_\bot = \dot{\theta} r$. Where $\dot{\theta}$ is the limit of the ratio of the angle between two consecutive $\r$ to the time difference as the time difference goes to $0$.
 \[ \dot{\theta} = \lim_{\Delta t \to 0} \frac{\text{angle}(\r(t), \, \r(t + \Delta t))}{\Delta t} \]
 For the polar coordinate system $\dot{\theta}$ is simply the time derivative of $\theta$.  Thus,
-\[ \ddtII{r} = \dot{\theta}^2 \, r + f(r) \labelthis{eq:eom} \]
+\[ \ddtII{r} = \dot{\theta}^2 \, r + f(r) \]
+Which is the same equation as~\eqref{eq:eom}.
 
-\subsection{Using lagrangian mechanics}\label{eom lagrangian}
+\section{Conserved quantities}\label{conserved quantities}
 
-\indent Let $T$ be the kinetic energy and $U$ be the potential energy of the particle experiencing the central force $\vec{F}(\r)$.
-\begin{align}
-	T &= \frac{1}{2} m \left\{ \dot{r}^2 + {(r \dot{\theta})}^2 \right\} \label{kinetic energy} \\
-	U &= \int -F(r) \, dr = - m \int f(r) \, dr \nonumber \tag*{[from~\eqref{eq:potential energy}]}
-\end{align}
+\indent Motion under central force conserves the angular momentum $\vec{L}$ and the total energy $E$. Both of these can be easily proven using lagrangian mechanics. We will use the results from Subsection~\ref{eom lagrangian}.
+\begin{itemize}
+	\item Independence of the lagrangian $\Lagr$ from $\theta$ (rotational symmetry) results in the conservation of angular momentum.
+	\item There is no time dependence of the lagrangian. Thus, the total energy (the hamiltonian) $E$ is conserved.
+\end{itemize}
 
-Then the lagrangian $\Lagr$ is,
-\[ \Lagr = T - U = \frac{1}{2} \, m \left( \dot{r}^2 + r^2 \dot{\theta}^2 \right) + m \int f(r) \, dr 
-																					\labelthis{eq:lagrangian} \]
-
-The Euler-Lagrange equations state that,
-\[	\ddt{} \frac{\partial \Lagr}{\partial \dot{r}} = \frac{\partial \Lagr}{\partial r} \hspace{4ex}
-\ddt{} \frac{\partial \Lagr}{\partial \dot{\theta}} = \frac{\partial \Lagr}{\partial \theta} \]
-
-Substituting for $\Lagr$ in the above equations we get,
-\begin{align}
-	&\ddtII{r} = \dot{\theta}^2 r + f(r) \nonumber \\
-	&\ddt{} (m r^2 \dot{\theta}) = 0 \labelthis{eq:conserv L lagrangian}
-\end{align}
-
-The first equation is the same as~\eqref{eq:eom} and the second one is just stating the conservation of angular momentum.
+\indent These can also be proven using the potential energy function~\eqref{eq:potential energy} and conservation of angular momentum using cross product~\eqref{eq:conserv L vec analysis} without the need of lagrangian mechanics.
 
 \section{Shape of the traced path}\label{shape of path}
 
@@ -168,14 +187,28 @@ If we notice carefully we can see hints of ${d^2 u}/{{d\theta}^2}$ in~\eqref{eq:
 
 For graviational field the right side of the equation simply becomes a constant and the equation becomes a linear differential equation. Solving it will give the equation of a conic section.
 
-\section{Conserved quantities}\label{conserved quantities}
+\section{Evaluating the force from the path}\label{force from path}
 
-\indent Motion under central force conserves the angular momentum $\vec{L}$ and the total energy $E$. Both of these can be easily proven using lagrangian mechanics. We will use the results from Subsection~\ref{eom lagrangian}.
-\begin{itemize}
-	\item Independence of the lagrangian $\Lagr$ from $\theta$ (rotational symmetry) results in the conservation of angular momentum.
-	\item There is no time dependence of the lagrangian. Thus, the total energy (the hamiltonian) $E$ is conserved.
-\end{itemize}
+\indent Equation~\eqref{eq:eomII} establises a relation between $1/r$ and $\theta$. There is no other variable (e.g.\ time) in this equation. This means instead of figuring the path of the particle from the force, we can do the reverse and calculate the force from the path!!!
+\[ f(r) = - h^2 u^2 \left( \ddthII{u} + u \right) \labelthis{eq:force from path} \]
 
-\indent These can also be proven using equation~\eqref{eq:potential energy} and~\eqref{eq:conserv L vec analysis}.
+\subsection{Central force that can generate conic paths}\label{force for conics}
+
+\indent Let $k$ be a constant and $e$ be the eccentricity of a conic. Then, the equation of a conic in polar coordinates is given by the following equation.
+\[ r = \frac{k}{1 + e \cos(\theta)} \]
+
+Replacing $r$ with $1/u$ and differentiating twice we get,
+\[ \frac{1}{r} = u =  \frac{1}{k} + \frac{e}{k} \cos{\theta} \quad\text{and}\quad \ddthII{u} = - \frac{e}{k} \cos(\theta) \]
+
+Now, we will substituting the value of ${d^2u}/{d\theta}^2$ in~\eqref{eq:force from path}. Substituting for $u$ in terms of $\theta$ is not done as we are trying to find $f(r)$ in terms of $r$. So we will use $u = 1/r$ instead.
+\begin{align*}
+	f(r) &= - h^2 {\left( \frac{1}{r} \right)}^2 \left( - \frac{e}{k} \cos{\theta} + \frac{1}{r} \right) \\
+		 &= - h^2 \frac{1}{r^2} \left( \frac{1}{k}\right) \\
+		 &= \frac{-h^2}{k} \frac{1}{r^2}
+\end{align*}
+
+\indent This means that only inverse square forces can generate conic paths! The planets move in an elliptical path and only this fact alone is enough to show that gravity indeed follows inverse square law.
+
+\fancyfoot[L]{The source code is available \href{https://github.com/moshiur-raj/notes}{here}}
 
 \end{document}
