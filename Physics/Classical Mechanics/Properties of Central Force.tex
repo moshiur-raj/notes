@@ -5,6 +5,7 @@
 \newcommand\labelthis[1]{\addtocounter{equation}{1}\tag{\theequation}\label{#1}}
 
 \usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \usepackage[document]{ragged2e}
 \usepackage{fancyhdr}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{1.2pt}
@@ -87,7 +88,7 @@ We could've also tried solving for the work done by evaluating $\int \vec{F}(\r)
 
 \indent Motion in central force is contained within a 2D plane. So, we are going to choose the polar coordinate system for calculations as it is much easier to express the central force in polar coordinates and we won't need to deal with any unnecessary coordinates.
 
-\subsection{Using lagrangian mechanics}\label{eom lagrangian}
+\subsection{Using Lagrangian mechanics}\label{eom lagrangian}
 
 \indent Let $\theta$ be the angle $\r$ makes with the $+x$ axis (counter clockwise is positive), $T$ be the kinetic energy and $U$ be the potential energy of the particle experiencing the central force $\vec{F}(\r)$.
 \begin{align}
@@ -95,7 +96,7 @@ We could've also tried solving for the work done by evaluating $\int \vec{F}(\r)
 	U &= \int -F(r) \, dr = - m \int f(r) \, dr \nonumber \tag*{[from~\eqref{eq:potential energy}]}
 \end{align}
 
-Then the lagrangian $\Lagr$ is,
+Then the Lagrangian $\Lagr$ is,
 \[ \Lagr = T - U = \frac{1}{2} \, m \left( \dot{r}^2 + r^2 \dot{\theta}^2 \right) + m \int f(r) \, dr 
 																					\labelthis{eq:lagrangian} \]
 
@@ -113,7 +114,7 @@ The first equation is the equation of motion for the particle and the second one
 
 \subsection{Using vector analysis and calculus}\label{eom vector calculus}
 
-\indent Newton's third law has second derivative of $\r$ in cartesian coordinates. So, we should start with evaluating the second derivatives of $r$ in terms of $\r$ and see what we can do with it.
+\indent Newton's third law has second derivative of $\r$ in Cartesian coordinates. So, we should start with evaluating the second derivatives of $r$ in terms of $\r$ and see what we can do with it.
 
 \medskip Differentiating both sides of the identity $r^2 = \r \cdot \r$,
 \[ \ddt{r} = \ru \cdot \ddt{\r} \labelthis{eq:ddtrmag} \]
@@ -140,13 +141,13 @@ Which is the same equation as~\eqref{eq:eom}.
 
 \section{Conserved quantities}\label{conserved quantities}
 
-\indent Motion under central force conserves the angular momentum $\vec{L}$ and the total energy $E$. Both of these can be easily proven using lagrangian mechanics. We will use the results from Subsection~\ref{eom lagrangian}.
+\indent Motion under central force conserves the angular momentum $\vec{L}$ and the total energy $E$. Both of these can be easily proved using Lagrangian mechanics. We will use the results from Subsection~\ref{eom lagrangian}.
 \begin{itemize}
-	\item Independence of the lagrangian $\Lagr$ from $\theta$ (rotational symmetry) results in the conservation of angular momentum.
-	\item There is no time dependence of the lagrangian. Thus, the total energy (the hamiltonian) $E$ is conserved.
+	\item Independence of the Lagrangian $\Lagr$ from $\theta$ (rotational symmetry) results in the conservation of angular momentum.
+	\item There is no time dependence of the Lagrangian. Thus, the total energy (the Hamiltonian) $E$ is conserved.
 \end{itemize}
 
-\indent These can also be proven using the potential energy function~\eqref{eq:potential energy} and conservation of angular momentum using cross product~\eqref{eq:conserv L vec analysis} without the need of lagrangian mechanics.
+\indent These can also be proved using the potential energy function~\eqref{eq:potential energy} and conservation of angular momentum using cross product~\eqref{eq:conserv L vec analysis} without the need of Lagrangian mechanics.
 
 \section{Shape of the traced path}\label{shape of path}
 
@@ -169,7 +170,7 @@ write~\eqref{eq:eom} in terms of $r$ and $\theta$.
 
 \medskip
 This is one messy equation. But differential equations are messy. Maybe we can get a simpler equation if we use some other variables instead of $r$ and $\theta$?
-Let us take a hint from the gravitaional field. We know that the planets follow an elliptical path.  The equation of an ellipse in polar coordinates is given by,
+Let us take a hint from the gravitational field. We know that the planets follow an elliptical path.  The equation of an ellipse in polar coordinates is given by,
 \[ r = \frac{k}{1 + e \cos{\theta}} \]
 
 From this we can observe that $1/r$ and $\cos{\theta}$ has a linear relationship. These kind of relationships are often seen as a solution of linear differential equations. Thus, let us choose our new variable $u = 1/r$. Then,
@@ -185,11 +186,11 @@ If we notice carefully we can see hints of ${d^2 u}/{{d\theta}^2}$ in~\eqref{eq:
 	The parts inside the parenthesis is exactly ${d^2 u}/{{d\theta}^2}$. After rearranging some terms we finally arrive at,
 \[ \ddthII{u} + u = - \frac{1}{h^2 u^2} \, f(1/u) \labelthis{eq:eomII} \]
 
-For graviational field the right side of the equation simply becomes a constant and the equation becomes a linear differential equation. Solving it will give the equation of a conic section.
+For gravitational field the right side of the equation simply becomes a constant and the equation becomes a linear differential equation. Solving it will give the equation of a conic section.
 
 \section{Evaluating the force from the path}\label{force from path}
 
-\indent Equation~\eqref{eq:eomII} establises a relation between $1/r$ and $\theta$. There is no other variable (e.g.\ time) in this equation. This means instead of figuring the path of the particle from the force, we can do the reverse and calculate the force from the path!!!
+\indent Equation~\eqref{eq:eomII} establishes a relation between $1/r$ and $\theta$. There is no other variable (e.g.\ time) in this equation. This means instead of figuring the path of the particle from the force, we can do the reverse and calculate the force from the path!!!
 \[ f(r) = - h^2 u^2 \left( \ddthII{u} + u \right) \labelthis{eq:force from path} \]
 
 \subsection{Central force that can generate conic paths}\label{force for conics}
