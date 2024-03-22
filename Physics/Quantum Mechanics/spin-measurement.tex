@@ -1,0 +1,149 @@
+\documentclass[a4paper, 12pt]{article}
+
+\setlength{\parindent}{0pt}
+\renewcommand{\indent}{\hspace{3ex}}
+
+\usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+% \usepackage[document]{ragged2e}
+\usepackage{fancyhdr}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{1.2pt}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyfoot[R]{page \thepage}
+
+\renewcommand{\maketitle}{
+	\begin{center}
+		\Huge\bfseries{Spin Measurement in Any Direction (Spin 1/2)}
+	\end{center}
+	\bigskip
+}
+
+\usepackage{titlesec}
+\titleformat{\section}
+	{\normalfont\Large\bfseries}{\thesection}{1em}{}[{\titlerule}]
+\titleformat{\subsection}
+	{\normalfont\large\bfseries}{$\bullet$}{1ex}{}
+
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks   = true,
+  urlcolor     = blue,
+  linkcolor    = blue,
+  citecolor    = red
+}
+
+\usepackage{common}
+\usepackage{amsmath}
+\usepackage{braket}
+\usepackage{textcomp}
+
+\newcommand{\Su}{\dfrac{\hbar}{2} \begin{pmatrix} \cos \gamma & \cos \alpha - i \cos \beta \\ \cos \alpha + i \cos \beta & - \cos \gamma \end{pmatrix}}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+\indent The spin matrices for x, y, z axes are give by,
+\begin{align}
+	S_x = \frac{\hbar}{2} \begin{pmatrix}0 &1\\ 1 &0\end{pmatrix}
+	&&S_y = \frac{\hbar}{2} \begin{pmatrix}0 &-i\\ i &0\end{pmatrix}
+	&&S_z = \frac{\hbar}{2} \begin{pmatrix}1 &0\\ 0 &-1\end{pmatrix}
+	\label{def: spin matrix}
+\end{align}
+
+\indent We want to measure spin along the direction $\vec u$. Where, $\vec u = \cos \alpha \, \hat i + \cos \beta \, \hat j + \cos \gamma \, \hat k$ is a unit vector described by it's directional cosines. Let us assume that the spin operator corresponding to this measurement is,
+\begin{align*}
+	S_u &= \cos \alpha \, S_x + \cos \beta \, S_y + \cos \gamma \, S_z \\
+		&= \Su \labelthis{def: S_u}
+\end{align*}
+
+
+\section{Checking Consistency}
+
+\indent For our assumption to be consistent $S_u$ needs to have two orthonormal eigenvectors with the eigenvalues $\pm \hbar/2$. If $\lambda$ is an eigenvalue of $S_u$ then,
+\[ | S_u - \lambda \text{I} | = 0 \]
+Putting the value of $S_u$ we get,
+\begin{align*}
+	\begin{vmatrix} \Su - \lambda \begin{pmatrix}1 &0\\ 0 &1\end{pmatrix} \end{vmatrix} &= 0 
+\end{align*}
+Let us define $\lambda' = 2/\hbar \, \lambda$. Then the above equation becomes,
+\begin{align*}
+	\begin{vmatrix} \cos \gamma - \lambda' & \cos \alpha - i \cos \beta \\ \cos \alpha + i \cos \beta & - \cos \gamma - \lambda'  \end{vmatrix} &= 0 \\
+	\Rightarrow - \cos^2 \gamma + {\lambda'}^2 - \cos^2 \alpha - \cos^2 \beta &= 0
+\end{align*}
+
+Since $\vec u$ is an unit vector the above equation reduces to $-1 + {\lambda'}^2 = 0$. This means,
+\begin{equation}
+	\lambda = \pm \, \frac{\hbar}{2}
+\end{equation}
+Now $S_u$ is a linear sum of Hermitian Operators with real coefficients. Thus $S_u$ is also a hermitian operator. We can clearly see this from \eqref{def: S_u}. Meaning,
+\begin{equation}
+	{S_u}^\dagger = S_u
+\end{equation}
+We know, eigenvectors with distinct eigenvalues of a Hermitian operator are orthogonal to each other. Meaning $S_u$ has two orthonormal eigenstates with eigenvalues $\pm \hbar/2$. Meaning the definition of $S_u$ in \eqref{def: S_u} is consistent with the behavior of spin.
+
+
+\section{Calculating Eigenvalues}
+\indent Let us define the two eigenvectors of $S_u$ by $\ket{\uparrow}_u$ and $\ket{\downarrow}_u$ with eigenvalues $+ \, \hbar/2$ and $+ \, \hbar/2$ respectively. Then for $\ket{\uparrow}_u$,
+\begin{align*}
+	\Su \begin{pmatrix} a \\ b \end{pmatrix} &= \frac{\hbar}{2} \begin{pmatrix} a \\ b \end{pmatrix}
+\end{align*}
+This gives us the following equations,
+\begin{align*}
+	\cos \gamma \, a + (\cos \alpha - i \cos \beta) b = a\\
+	(\cos \alpha + i \cos \beta) a - \cos \gamma \, b = b\\
+\end{align*}
+These two equations are the same equations. Solving them we will get,
+\begin{equation}
+	b = \frac{\cos \alpha + i \cos\beta}{1 + \cos \gamma} a
+	\label{ex: b in terms of a}
+\end{equation}
+Since $\ket{\uparrow}_u$ has unit norm,
+\begin{align*}
+	\ket{\uparrow}_u^\dagger \ket{\uparrow}_u &= 1\\
+	\Rightarrow \begin{pmatrix} a^* &b^* \end{pmatrix} \begin{pmatrix} a \\b \end{pmatrix} &= 1
+\end{align*}
+Putting the value of b,
+\[ \left( 1 + \frac{\cos^2 \alpha + \cos^2 \beta}{(1 + \cos \gamma)^2} \right) |a|^2 = 1 \]
+Thus,
+\begin{align*}
+	|a|^2 &= \frac{(1 + \cos \gamma)^2}{1 + \cos^2 \gamma + 2 \cos \gamma + \cos^2 \alpha + \cos^2 \beta}\\
+		  &= \frac{(1 + \cos \gamma)^2}{1 + 1 + 2 \cos \gamma}\\
+		  &= \frac{1 + \cos \gamma}{2}\\
+		  &= \cos^2 (\gamma/2)
+\end{align*}
+We are going to pick the real value for $a$ as the phase does not matter in this case. Thus,
+\begin{align*}
+	\ket{\uparrow}_u &= \begin{pmatrix} \cos (\gamma/2) \\\\ \dfrac{(\cos\alpha + i\cos\beta)\cos (\gamma/2)}{1 + \cos \gamma} \end{pmatrix}\\
+					 &= \begin{pmatrix} \cos (\gamma/2) \\\\ \dfrac{\cos \alpha + i \cos \beta}{2 \cos (\gamma/2)} \end{pmatrix} \labelthis{ex: up spin in u direction}
+\end{align*}
+For the down spin we will get $\cos \gamma - 1$ in the denominator in \eqref{ex: b in terms of a}. This will lead to $\sin \gamma/2$ in the expression of $\ket{\downarrow}_u$.
+\begin{equation}
+	\ket{\downarrow}_u = \begin{pmatrix} \sin (\gamma/2) \\\\ - \, \dfrac{\cos \alpha + i \cos \beta}{2 \sin (\gamma/2)} \end{pmatrix} \labelthis{ex: down spin in u direction}
+\end{equation}
+
+
+\section{Measurement}
+\indent Now, let us assume that the particle was in up state, $\ket{\uparrow}_z$, in the z direction. We are going to measure the particles spin along a direction in the z-x plane. The direction makes angle $\theta$ with the z axis. Meaning $\gamma = \theta$, $\alpha = \pi/2 - \theta$ and $\beta = \pi / 2$. Putting these values in \eqref{ex: up spin in u direction} and \eqref{ex: down spin in u direction},
+\begin{align*}
+	\ket{\uparrow}_u = \begin{pmatrix} \cos (\theta/2) \\\\ \sin(\theta/2) \end{pmatrix} && \ket{\uparrow}_u = \begin{pmatrix} \sin (\theta/2) \\\\ - \cos(\theta/2) \end{pmatrix}
+\end{align*}
+Thus, the probability amplitude of $\ket{\uparrow}_u$ in $\ket{\uparrow}_z$ is,
+\begin{equation*}
+	\bra{\uparrow}_u \ket{\uparrow}_z = \begin{pmatrix} \cos (\theta/2) & \sin(\theta/2) \end{pmatrix} \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \cos (\theta/2)
+\end{equation*}
+Similarly,
+\begin{equation*}
+	\bra{\downarrow}_u \ket{\uparrow}_z = \sin (\theta/2)
+\end{equation*}
+\indent Thus the probability of getting an up spin in $\vec u$ direction is $\cos^2(\theta/2)$ and for down spin it is $\sin^2 (\theta/2)$.
+
+\section{Interpretation}
+\indent We can interpret these results by saying that the angle in real becomes half that angle in spin space for spin 1/2 particles. For example the angle between angular momentum represented by up and down spin in real space is $180^\circ$. This may make it seem like up and down spin are just scalar multiple (-1) of each other. However in spin space they are orthogonal. This is because $180^\circ$ becomes $90^\circ$ degrees in spin space and dot product between vectors at $90^\circ$ is zero. Similarly we can use this interpretation to describe why up spin can be expressed as a linear sum of left and right spin. Because the angle in real space, $90^\circ$, becomes $45^\circ$ in spin space. Meaning up spin in z direction has equal parts of left and right spin (in x or y direction).
+
+ 
+\end{document}

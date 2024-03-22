@@ -1,0 +1,49 @@
+\documentclass[a4paper, 10pt]{article}
+
+\usepackage[]{amsmath}
+\usepackage[]{amssymb}
+
+% \usepackage[]{showframe}
+\usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\newcommand{\Sum}[1]{\sum \limits_{i = 1}^{n} {#1}}
+\newcommand{\Prod}[1]{\prod \limits_{i = 1}^{n} {#1}}
+\newcommand{\inv}[1]{\frac{1}{#1}}
+
+\begin{document}
+
+Let us assume that there are n data points $x_1, x_2, x_3, \dots, x_n$ where $x_i \in \mathbb{R}$ and $x_i \geq 0$ $\forall i \in \{ 1, 2, 3, \dots, n \}$. Then the Arithmetic Mean (AM), Geometric Mean (GM) and the Harmonic Mean (HM) are defined as,
+\begin{align}
+	AM &= \frac{\Sum{x_i}}{n} \label{eq:AMdef} \\
+	GM &= {\left( \Prod{x_i} \right)}^{\inv{n}} \label{eq:GMdef} \\
+	HM &= \inv{\inv{n} \Sum{\inv{x_i}}} \label{eq:HMdef}
+\end{align}
+
+If any $x_i = 0$ then it clearly follows that $AM \geq GM = 0$. Now we just need to prove the inequality for all $x_i > 0$. To do this we have to convert the products in GM to sums. And the function that converts products to sums is the logarithmic function. We know that, $\exp\{\ln(GM)\} = GM$.
+\begin{align*}
+	\ln(GM) &= \inv{n} \Sum{\ln(x_i)} \\
+			&= \inv{n} \Sum{\ln(AM + h_i)} \tag{$x_i = AM + h_i$} \\
+			&= \inv{n} \Sum{\ln \left\{ AM \left( 1 + \frac{h_i}{AM} \right) \right\}} \\
+			&= \inv{n} \Sum{\left\{\ln(AM) + \ln \left( 1 + \frac{h_i}{AM} \right) \right\}} \\
+			&= \ln(AM) + \inv{n} \Sum{\ln \left\{ 1 + \left( \frac{h_i}{AM} \right) \right\}} \\
+			&= \ln(AM) + \inv{n} \Sum{\left\{ \ln(1 + 0) + \inv{1 + 0} \left( \frac{h_i}{AM} \right) + \inv{2!} \frac{-1}{(1 + \zeta_i)^2} \left( \frac{h_i}{AM} \right)^2 \right\}} \\
+			\tag{Taylor Series expansion. $\zeta_i$ lies between 0 and $\dfrac{h_i}{AM}$}\\
+			&= \ln(AM) + \inv{n} \Sum{\left\{ \frac{h_i}{AM} \right\}} - \Sum k_i h_i^2 \tag{$k_i > 0$} \\
+			&= \ln(AM) + \inv{n} \inv{AM} \Sum{h_i} - \Sum{k_i h_i^2} \\
+			&= \ln(AM) - \Sum{k_i h_i^2} \numberthis \label{eq:lnGM} \\
+	\implies GM \leq AM \numberthis \label{eq:GMleqAM}
+\end{align*}
+
+\noindent Now we just need to show that $HM \leq GM$. To do this we need to convert the sums in the denominator of \eqref{eq:HMdef} to products. Conveniently we can do this using \eqref{eq:GMleqAM}.
+\begin{align}
+	&\inv{HM} = \inv{n} \Sum{\inv{x_i}} \geq { \left\{ \Prod{\inv{x_i}} \right\} }^{\inv{n}} = \inv{GM} \nonumber\\
+	&\implies HM \leq GM \label{eq:HMleqGM}
+\end{align}
+
+\noindent Combining \eqref{eq:GMleqAM} and \eqref{eq:HMleqGM} we get,
+\[ AM \geq GM \geq HM \]
+
+Also, from \eqref{eq:lnGM} we can see that $AM = GM = HM$ if and only if $h_i = 0$ $\forall i$, meaning all $x_i$ should be equal.
+
+\end{document}
