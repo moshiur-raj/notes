@@ -1,0 +1,100 @@
+\documentclass[titlepage, a4paper, 11pt]{article}
+
+\usepackage[a4paper, width=150mm, top=25mm, bottom=25mm, headheight=10mm]{geometry}
+% left=30mm, right=30mm, 
+\usepackage{fancyhdr}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{1.2pt}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[R]{\leftmark}
+\fancyfoot{}
+\fancyfoot[R]{page \thepage}
+\fancypagestyle{sectionpagestyle}{
+	\fancyhead{}
+	\fancyfoot{}
+	\fancyfoot[R]{page \thepage}
+}
+
+\usepackage{amsmath}
+\usepackage{braket}
+
+\usepackage{ifthen}
+\newcommand{\lattice}[4]{%
+	\begin{matrix}%
+		\ifthenelse{\equal{#1}{u}}{\uparrow}{\downarrow}%
+		&\ifthenelse{\equal{#2}{u}}{\uparrow}{\downarrow} \\%
+		\ifthenelse{\equal{#3}{u}}{\uparrow}{\downarrow}%
+		&\ifthenelse{\equal{#4}{u}}{\uparrow}{\downarrow}%
+	\end{matrix}%
+}
+
+\newcommand\mtx[1]{\begin{pmatrix} #1 \end{pmatrix}}
+
+\begin{document}
+
+The state of a $2 \times 2$ lattice row, $\mu$ is described by the $2^2$ dimensional vector
+$\ket{\mu}$ which is defined as,
+\begin{align*}
+	\ket{\mu} = \ket{1} = \mtx{1\\0\\0\\0} \implies \uparrow \uparrow
+	&&\ket{\mu} = \ket{2} = \mtx{0\\1\\0\\0} \implies \uparrow \downarrow \\
+	\ket{\mu} = \ket{3} = \mtx{0\\0\\1\\0} \implies \downarrow \uparrow
+	&&\ket{\mu} = \ket{4} = \mtx{0\\0\\0\\1} \implies \downarrow \downarrow
+\end{align*}
+
+Let $(i, j)$ be the state of a lattice where $i$ is the state of the first row and $j$ the second.
+The $2^2 \times 2^2$ dimensional transfer matrix, $V$, is then defined as,
+\begin{equation*}
+	V_{ij} = \bra{i} V \ket{j} = e^{- \beta E(i,j)}
+\end{equation*}
+Where $E(i, j)$ is the total energy for that state defined as,
+\begin{equation*}
+	E(i, j) = \sum -H s_k + \sum -J s_k s_k'
+\end{equation*}
+The first sum is over all spins of a row having the configuration $\ket{i}$ and the second sum is
+over neighboring spins (contained within two adjacent rows having configurations $\ket{i}, \ket{j}$)
+of all the spins in the row having the configuration $\ket{i}$. There are $2^2 \times 2^2 = 16$
+states in total. Let us now calculate the energy of these states.
+\begin{center}
+\begin{tabular}{|c|c|c||c|c|c|}
+	\hline
+	Element      &Lattice                   &$E(i, j)$
+	&Element     &Lattice                   &$E(i, j)$ \\
+	\hline
+	$V_{11}$     &$\lattice{u}{u}{u}{u}$    &$2H+4J$
+	&$V_{12}$    &$\lattice{u}{u}{u}{d}$    &$2H+2J$ \\
+	\hline
+	$V_{13}$     &$\lattice{u}{u}{d}{u}$    &$2H+2J$
+	&$V_{14}$    &$\lattice{u}{u}{d}{d}$    &$2H$ \\
+	\hline
+	$V_{21}$     &$\lattice{u}{d}{u}{u}$    &$-2J$
+	&$V_{22}$    &$\lattice{u}{d}{u}{d}$    &$0$ \\
+	\hline
+	$V_{23}$     &$\lattice{u}{d}{d}{u}$    &$-4J$
+	&$V_{24}$    &$\lattice{u}{d}{d}{d}$    &$-2J$ \\
+	\hline
+	$V_{31}$     &$\lattice{d}{u}{u}{u}$    &$-2J$
+	&$V_{32}$    &$\lattice{d}{u}{u}{d}$    &$-4J$ \\
+	\hline
+	$V_{33}$     &$\lattice{d}{u}{d}{u}$    &$0$
+	&$V_{34}$    &$\lattice{d}{u}{d}{d}$    &$-2J$ \\
+	\hline
+	$V_{41}$     &$\lattice{d}{d}{u}{u}$    &$-2H$
+	&$V_{42}$    &$\lattice{d}{d}{u}{d}$    &$-2H+2J$ \\
+	\hline
+	$V_{43}$     &$\lattice{d}{d}{d}{u}$    &$-2H+2J$
+	&$V_{44}$    &$\lattice{d}{d}{d}{d}$    &$-2H+4J$ \\
+	\hline
+\end{tabular}
+\end{center}
+
+Thus the transfer matrix is,
+\begin{equation*}
+	V = \mtx{e^{-\beta(2H+4J)} &e^{-\beta (2H+2J)} &e^{-\beta (2H+2J)} &2^{-2\beta H} \\
+		e^{2\beta J} &1 &e^{4\beta J} &e^{2\beta J} \\
+		e^{2\beta J} &e^{4\beta J} &1 &e^{2\beta J} \\
+		e^{2\beta H} &e^{-\beta (-2H+2J)} &e^{-\beta (-2H+2J)} &e^{-\beta(-2H+4J)}}
+\end{equation*}
+
+
+\end{document}

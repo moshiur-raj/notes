@@ -1,0 +1,94 @@
+\documentclass[titlepage, a4paper, 11pt]{article}
+
+\usepackage[a4paper, width=150mm, top=25mm, bottom=25mm, headheight=10mm]{geometry}
+\usepackage{fancyhdr}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{1.2pt}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[R]{\leftmark}
+\fancyfoot{}
+% \fancyfoot[R]{page \thepage}
+\fancypagestyle{sectionpagestyle}{
+	\fancyhead{}
+	\fancyfoot{}
+	% \fancyfoot[R]{page \thepage}
+}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+Let us assume a tungsten filament has uniform cross sectional area $A$, length $L$ and total surface
+area $S = 2A + A'$ ($A'$ is the remaining surface area after excluding the two ends). The resistance
+of tungsten varies linearly with temperature. This is valid for very high temperatures (in the order
+of $10^3K$).
+\begin{equation}
+	R = R_0 [1 + \alpha (T - T_0)]
+	\label{r in terms of t}
+\end{equation}
+Here, $T_0$ is the room temperature and $T$ is the temperature of the filament and $R_0$ can be
+rewritten in terms of resistivity $\rho$, $A$ and $L$ as,
+\begin{equation}
+	R_0 = \rho \, \frac{L}{A}
+	\label{r0 in terms of rho}
+\end{equation}
+
+When electricity flows through the filament it heats up. According to the Stefan – Boltzmann law the
+energy radiated will be,
+\begin{equation}
+	P_\text{ heat} = \sigma S (T^4 - T_0^4)
+	\label{p heat}
+\end{equation}
+The energy supplied to the filament through electricity is,
+\begin{equation}
+	P_\text{ electricity} = I V
+	\label{p electricity}
+\end{equation}
+
+At equilibrium the energy supplied by electricity is spent in radiated heat. Hence,
+\begin{equation}
+	I V = \sigma S (T^4 - T_0^4)
+	\label{equilibrium}
+\end{equation}
+Now, we only have to express the temperature as function of current and volatage in the above
+equation.
+
+Combining \eqref{r in terms of t}, \eqref{r0 in terms of rho} and using Ohm's law,
+\begin{equation}
+	R = \frac{V}{I} = \rho \, \frac{L}{A} \, [1 + \alpha (T - T_0)]
+	\label{r in terms of v i and rho}
+\end{equation}
+
+The tungsten filament gets very hot (order of $10^3K$). So we can ignore $T_0$ and at this
+temperature range we can assume $\alpha T \gg 1$ (for tungsten). Then
+\eqref{r in terms of v i and rho} simplifies to,
+\begin{equation}
+	\frac{V}{I} = \rho \, \frac{L}{A} \, \alpha T \implies T = \frac{1}{\rho \alpha} \, \frac{A}{L}
+	\, \frac{V}{I}
+\end{equation}
+Putting the value of $T$ in \eqref{equilibrium} and ignoring $T_0$ we arrive at,
+\begin{equation}
+	I V = \sigma \, (2A + A') \left( \frac{1}{\rho \alpha} \, \frac{A}{L} \, \frac{V}{I} \right)^4
+\end{equation}
+Rearranging the terms,
+\begin{equation}
+	I = \left[ \frac{\sigma}{(\rho \alpha)^4} \right]^{1/5} \left[ (2A + A') A^4 \right]^{1/5}
+	\frac{1}{L^{4/5}} \, V^{3/5} = k V^n
+	\label{i = kv^n}
+\end{equation}
+
+Hence, $I$ should vary linearly with $V^{0.6}$. Experimentally I found that the value of $n$ was
+$0.5$.
+
+The above equation also demonstrates the dependence of $k$ on the cross-section and length of the
+conductor. This behavior is different from that of conductance. Conductance varies linearly with
+$A/L$. It is due to the fact that if we change the area or length we cannot assume that
+the configuration is similar to filaments in parallel or series respectively, as we need to
+consider the outer surface area for Stefan - Boltzmann law. If the length of the filament is
+small compared to it's thickness then we can ignore the effects of surface area (ignoring $A'$ in
+\eqref{i = kv^n}) when changing the cross section and we recover the linear dependence on $A$.
+However, the linear dependence on $1/L$ is not recovered as we cannot ignore the effect of surface
+area when changing $L$.
+
+\end{document}
