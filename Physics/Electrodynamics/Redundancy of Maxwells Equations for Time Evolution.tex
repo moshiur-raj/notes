@@ -1,0 +1,100 @@
+\documentclass[a4paper, 11pt]{article}
+
+\usepackage[a4paper, width=150mm, top=25mm, bottom=25mm, headheight=10mm]{geometry}
+\usepackage{fancyhdr}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{1.2pt}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[R]{\leftmark}
+\fancyfoot{}
+\fancyfoot[R]{page \thepage}
+\fancypagestyle{sectionpagestyle}{
+	\fancyhead{}
+	\fancyfoot{}
+	\fancyfoot[R]{page \thepage}
+}
+
+\usepackage{titlesec}
+\titleformat{\section}
+	{\normalfont\Large\bfseries}{\thesection}{1em}{}[{\titlerule}]
+
+\usepackage{bookmark}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks   = true,
+	urlcolor     = black,
+	linkcolor    = black,
+	citecolor    = black,
+	bookmarksnumbered,
+	pdfencoding=auto,
+	psdextra
+}
+
+\usepackage{amsmath}
+
+\begin{document}
+
+\begin{center}
+	\Large\bfseries Redundancy of Maxwell's Equations For Time Evolution
+	\vspace{.15em}\hrule
+\end{center}
+
+The four Maxwell's equations are,
+\begin{alignat}{2}
+	&\nabla \cdot E &&= \rho / \epsilon_0 \label{div E} \\
+	&\nabla \cdot B &&= 0 \label{div B} \\
+	&\nabla \times E &&= - \frac{\partial B}{\partial t} \label{curl E} \\
+	&\nabla \times B &&= \mu_0 J + \mu_0 \epsilon_0 \frac{\partial E}{\partial t} \label{curl B}
+\end{alignat}
+Together they constitute eight differential equations. However two of them are only needed for
+setting the initial condition and they are not necessary for time evolution even without using
+potentials to describe the field. \medskip
+
+If we know the value of the electromagnetic field at a particular time then we can evolve the field
+in time using \eqref{curl E} and \eqref{curl B}. Let, $E = E_0$, $B = B_0$, $\rho = \rho_0$ and $J =
+J_0$ at time $t = t_0$.
+Then,
+\begin{align}
+	E(\vec{r}, t_0 + dt) &= E_0 + \frac{\partial E}{\partial t} = E_0 + \left( \frac{1}{\mu_0
+	\epsilon_0} \nabla \times B - \frac{1}{\epsilon_0} J \right) dt \\
+	B(\vec{r}, t_0 + dt) &= B_0 + \frac{\partial B}{\partial t} dt = B_0 - \nabla \times E \, dt
+\end{align}
+Now we take the divergence of the electric and magnetic field at $t = t_0 + dt$.
+\begin{align}
+	\nabla \cdot E(\vec{r}, t_0 + dt) &= \nabla \cdot E_0 - \frac{1}{\epsilon_0} \nabla \cdot J \, dt
+	\\
+	\nabla \cdot B(\vec{r}, t_0 + dt) &= \nabla \cdot B_0
+\end{align}
+We have used the fact that divergence of curl is zero. Maxwell's fourth equation \eqref{curl B}
+implies the continuity equation for charge flow e.g. $\nabla \cdot J = - \partial \rho / \partial t$
+. The electromagnetic field at time $t = t_0$ satisfies the Maxwell's equations. Hence the two
+equations above reduces to,
+\begin{align}
+	\nabla \cdot E(\vec{r}, t_0 + dt) &= \frac{1}{\epsilon_0} \rho_0 + \frac{1}{\epsilon_0} \frac{
+	\partial \rho}{\partial t} \, dt = \frac{1}{\epsilon_0} \rho(\vec{r}, t_0 + dt) \\
+\nabla \cdot B(\vec{r}, t_0 + dt) &= 0
+\end{align}
+
+This means that if \eqref{div E} and \eqref{div B} are satisfied at $t = t_0$ then infinitesimal
+evolution of the field using \eqref{curl E} and \eqref{curl B} will also satisfy \eqref{div E} and
+\eqref{div B}. We can construct the evolution of the field for finite time difference by integrating
+the infinitesimal changes, hence the divergence of the field always follows Maxwell's equations if
+the initial conditions do the same. \medskip
+
+From this discussion we can conclude that \eqref{div E} and \eqref{div B} are only needed for the
+initial condition. Once the initial value of the field is fixed we only need two of the Maxwell's
+equations to evolve the field, hence the redundancy. \bigskip
+
+We can approach the problem in a much more rigorous and compact way given below.
+\begin{alignat}{2}
+	\frac{\partial}{\partial t} \nabla \cdot E &= \nabla \cdot \frac{\partial}{\partial t} E &&=
+	\nabla \cdot \left( \frac{1}{\mu_0 \epsilon_0} \nabla \times B - \frac{1}{\epsilon_0} J \right)
+	= \frac{1}{\epsilon_0} \frac{\partial \rho}{\partial t} \\
+	\frac{\partial}{\partial t} \nabla \cdot B &= \nabla \cdot \frac{\partial}{\partial t} B &&=
+	\nabla \cdot \left( - \nabla \times E \right) = 0
+\end{alignat}
+These equations imply that $\nabla \cdot E - \rho/\epsilon_0$ and $\nabla \cdot B$ are constants.
+These constants are determined by the initial condition. However this approach is less intuitive.
+
+\end{document}

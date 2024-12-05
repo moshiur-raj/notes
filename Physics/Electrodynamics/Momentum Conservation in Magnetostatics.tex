@@ -1,0 +1,225 @@
+\documentclass[titlepage, a4paper, 11pt]{article}
+
+\usepackage{amsmath}
+
+\usepackage[a4paper, width=150mm, top=25mm, bottom=25mm, headheight=10mm]{geometry}
+
+\begin{document}
+
+\title{Conservation of Linear and Angular Momentum in Magnetostatics}
+\author{Moshiur Rahman}
+\date{\today}
+
+\begin{abstract}
+	Momentum conservation for an isolated system is a fundamental law of physics. As such it applies
+	to both electrostatics and magnetostatics. Conservation principles for electrostatics is
+	often discussed in classes. However it is almost always avoided for magnetostatics. But the case
+	for magnetostatics is just as important for understanding the physics behind the technologies
+	(e.g. electric motors) we rely on everyday. In electrostatics conservation of linear and angular
+	momentum follows quite easily from the fact that Coulomb's law obeys Newton's third law and acts
+	radially. It can also be shown using Lagrangian mechanics. However for magnetostatics these
+	methods do not work as magnetic force does not act radially and constructing the Lagrangian for
+	a system of magnetically interacting particles is not as simple. Unlike electrostatics we cannot
+	reduce the problem to the interaction between two charged particles, we have to consider the
+	interactions in the entire system. Which makes this an interesting problem to solve. An approach
+	is shown here using the Biot-Savant law.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+Magnetostatics refers to the situations where the electric charge density and the electric current
+density at every point in space does not change with time. In such cases the magnetic field at a
+point $\mathbf{r}$ is given by the Biot-Savant law \cite{Griffiths} in terms of the electric current
+density $\mathbf{J}(\mathbf{r})$.
+\begin{equation}
+	\mathbf{B}(\mathbf{r}) = \frac{\mu_0}{4\pi} \int_V \frac{\mathbf{J}(\mathbf{r}') \times
+	(\mathbf{r} - \mathbf{r}')}{|\mathbf{r} - \mathbf{r}'|^3} d^3\mathbf{\mathbf{r}}'
+	\label{Biot-Savant law}
+\end{equation}
+Where the integration region, $V$, contains all the charges in the system and these charges
+experience the Lorentz force given by
+\begin{equation}
+	\mathbf{F} = q (\mathbf{E} + \mathbf{v} \times \mathbf{B})
+\end{equation}
+We can deal with the electric and magnetic force separately. The conservation law for the electric
+force is easy to demonstrate. For most cases we deal with electrically neutral systems anyway. In
+this article we will only do calculations for the magnetic field.
+
+To demonstrate the conservation of linear and angular momentum it is enough to prove that the net
+force and the net torque is zero. Assuming a continuous charge distribution ($\rho$) and using the
+Lorentz force law along with the identity $\mathbf{J} = \rho \mathbf{v}$, we can derive the
+expression for the net force\cite{Griffiths} and the net torque.
+\begin{align}
+	\mathbf{F}_\text{net} &= \int_V \mathbf{J}(\mathbf{r}) \times \mathbf{B}(\mathbf{r}) d^3\mathbf{r}
+	\label{F_net} \\
+	\mathbf{T}_\text{net} &= \int_V \mathbf{r} \times \left[ \mathbf{J}(\mathbf{r}) \times
+	\mathbf{B}(\mathbf{r}) \right] d^3 \mathbf{r}
+	\label{T_net}
+\end{align}
+
+\section{Conservation of Linear Momentum}
+Using the Biot-Savant law the expression for the net force Eq. \eqref{F_net}
+becomes
+\begin{equation}
+	\mathbf{F}_\text{net} = \frac{\mu_0}{4\pi} \int \int \mathbf{J}(\mathbf{r}) \times \left[
+	\mathbf{J}(\mathbf{r}') \times \frac{\mathbf{r} - \mathbf{r}'}{| \mathbf{r} - \mathbf{r}'
+	|^3} \right] d^3\mathbf{r}' d^3\mathbf{r}
+\end{equation}
+We can use the vector triple product formula here. $\mathbf{A} \times (\mathbf{B} \times \mathbf{C})
+= (\mathbf{A} \cdot \mathbf{C}) \mathbf{B} - (\mathbf{A} \cdot \mathbf{B}) \mathbf{C}$.
+\begin{equation}
+	\mathbf{F}_\text{net} = \frac{\mu_0}{4\pi} \int \int \left[ \left\{ \mathbf{J}(\mathbf{r}) \cdot
+	\frac{\mathbf{r} - \mathbf{r}'}{| \mathbf{r} - \mathbf{r}' |^3} \right\} \mathbf{J}(\mathbf{r}')
+	+ \left\{ \mathbf{J}(\mathbf{r}) \cdot \mathbf{J}(\mathbf{r}') \right\} \frac{\mathbf{r} -
+	\mathbf{r}'}{| \mathbf{r} - \mathbf{r}' |^3} \right] d^3\mathbf{r}' d^3\mathbf{r}
+\end{equation}
+The  second term inside the integral changes sign when $\mathbf{r}$ and $\mathbf{r}'$ are
+interchanged. This implies that the contribution of the term evaluated at $(\mathbf{r},
+\mathbf{r}')$ is exactly canceled out by the contribution from $(\mathbf{r}', \mathbf{r})$. So the
+integral of that term is zero. The first term can be rewritten using the following relation.
+\begin{equation}
+	- \nabla \frac{1}{|\mathbf{r} - \mathbf{r}'|} = \frac{\mathbf{r} - \mathbf{r}'}{| \mathbf{r} -
+	\mathbf{r}' |^3}
+	\label{grad 1/r}
+\end{equation}
+Then the net force becomes
+\begin{equation}
+	\mathbf{F}_\text{net} = - \frac{\mu_0}{4\pi} \int \left[ \int \mathbf{J}(\mathbf{r}) \cdot
+	\nabla \frac{1}{|\mathbf{r} - \mathbf{r}'|} d^3\mathbf{r} \right] \mathbf{J}(\mathbf{r}') \,
+	d^3\mathbf{r}'
+\end{equation}
+For a scalar field $f$ and a divergenceless vector field $\mathbf{A}$, $\nabla \cdot (f \mathbf{A})
+= \nabla f \cdot \mathbf{A}$. Since the charge density does not change with time, the continuity
+equation\cite{Griffiths} implies that $\mathbf{J}$ is divergenceless. Hence
+\begin{equation}
+	\nabla \cdot \left[ \frac{1}{|\mathbf{r} - \mathbf{r}'|} \mathbf{J}(\mathbf{r}) \right] = \nabla
+	\frac{1}{|\mathbf{r} - \mathbf{r}'|} \cdot \mathbf{J}(\mathbf{r})
+	\label{div 1/|r-r'| J}
+\end{equation}
+And
+\begin{equation}
+	\mathbf{F}_\text{net} = - \frac{\mu_0}{4\pi} \int \left[ \int \nabla \cdot \left\{
+	\frac{1}{|\mathbf{r} - \mathbf{r}'|} \mathbf{J}(\mathbf{r}) \right\} d^3\mathbf{r} \right]
+	\mathbf{J}(\mathbf{r}') \, d^3\mathbf{r}'
+\end{equation}
+We can convert this integral inside the third brackets to a surface integral using the divergence
+theorem. But we can make the volume arbitrarily large and for a sufficiently large volume
+$\mathbf{J}(\mathbf{r}) = \mathbf{0}$ at the surface. So, the surface integral ultimately becomes
+zero. Implying
+\begin{equation}
+	\mathbf{F}_\text{net} = \mathbf{0}
+\end{equation}
+
+\section{Conservation of Angular Momentum}
+Again using the Biot-Savant law the expression for the net torque Eq. \eqref{T_net} becomes
+\begin{equation}
+	\mathbf{T}_\text{net} = \int \int \mathbf{r} \times \left[ \mathbf{J}(\mathbf{r}) \times
+	\left\{ \mathbf{J}(\mathbf{r}') \times \frac{\mathbf{r} - \mathbf{r'}}{|\mathbf{r} -
+	\mathbf{r}'|^3} \right\} \right] d^3 \mathbf{r}' d^3 \mathbf{r}
+\end{equation}
+Using the vector triple product formula and expanding the terms we arrive at
+\begin{equation}
+	\mathbf{T}_\text{net} = \int \int \left[ \left\{ \mathbf{J}(\mathbf{r}) \cdot \frac{\mathbf{r} -
+	\mathbf{r'}}{|\mathbf{r} - \mathbf{r}'|^3} \right\} \mathbf{r} \times \mathbf{J}(\mathbf{r}') +
+	\left\{ \mathbf{J}(\mathbf{r}) \cdot \mathbf{J}(\mathbf{r}') \right\} \frac{\mathbf{r} \times
+	\mathbf{r'}}{|\mathbf{r} - \mathbf{r}'|^3} \right] d^3 \mathbf{r}' d^3 \mathbf{r}
+\end{equation}
+The integral of the second term is zero as interchanging $\mathbf{r}$ and $\mathbf{r}'$ changes the
+sign. And using Eq. \eqref{grad 1/r}, Eq. \eqref{div 1/|r-r'| J} for the first term the net torque becomes
+\begin{equation}
+	\mathbf{T}_\text{net} = - \int \left[ \int \left\{ \nabla \cdot
+	\frac{\mathbf{J}(\mathbf{r})}{|\mathbf{r} - \mathbf{r}'|} \right\} \mathbf{r} d^3 \mathbf{r}
+	\right] \times \mathbf{J}(\mathbf{r}') d^3 \mathbf{r}'
+	\label{T_net somewhat simplified}
+\end{equation}
+The integral inside the third brackets is a vector. We will evaluate its components separately.
+\begin{equation}
+	\begin{aligned}
+		\int \left\{ \nabla \cdot \frac{\mathbf{J}(\mathbf{r})}{|\mathbf{r} - \mathbf{r}'|} \right\}
+		x d^3\mathbf{r} &= \int \left\{ \frac{\partial}{\partial x}
+		\frac{J_x(\mathbf{r})}{|\mathbf{r} - \mathbf{r}'|} \right\} x d^3\mathbf{r} + \int \left\{
+		\frac{\partial}{\partial y} \frac{J_y(\mathbf{r})}{|\mathbf{r} - \mathbf{r}'|} \right\}
+		x d^3\mathbf{r} \\
+		&+ \int \left\{ \frac{\partial}{\partial z} \frac{J_z(\mathbf{r})}{|\mathbf{r} -
+		\mathbf{r}'|} \right\} x d^3\mathbf{r}
+	\end{aligned}
+	\label{int div J/|r-r'| x d^3r}
+\end{equation}
+The first term can be rewritten using integration by parts.
+\begin{equation}
+	\int \left\{ \frac{\partial}{\partial x} \frac{J_x(\mathbf{r})}{|\mathbf{r} - \mathbf{r}'|}
+	\right\} x dx = \int \left[ \frac{\partial}{\partial x} \left\{ \frac{xJ_x(\mathbf{r})}{
+	|\mathbf{r} - \mathbf{r}'|} \right\} - \frac{J_x(\mathbf{r})}{|\mathbf{r} - \mathbf{r}'|}
+	\right] dx
+\end{equation}
+But, $\mathbf{J}(\mathbf{r})$ vanishes at the boundary for sufficiently large volume. Meaning the
+boundary term vanishes.
+\begin{equation}
+	\int \left\{ \frac{\partial}{\partial x} \frac{J_x(\mathbf{r})}{|\mathbf{r} - \mathbf{r}'|}
+	\right\} x d^3\mathbf{r} = - \int \frac{J_x(\mathbf{r})}{|\mathbf{r} - \mathbf{r}'|} d^3
+	\mathbf{r}
+\end{equation}
+The second term can be evaluated in a similar way.
+\begin{equation}
+	\int \left\{ \frac{\partial}{\partial y} \frac{J_y(\mathbf{r})}{|\mathbf{r} - \mathbf{r}'|}
+	\right\} x dy = \int \frac{\partial}{\partial y} \left\{ x \frac{J_y(\mathbf{r})}{|\mathbf{r} -
+	\mathbf{r}'|} \right\} dy = 0
+\end{equation}
+Implying
+\begin{equation}
+	\int \left\{ \frac{\partial}{\partial y} \frac{J_y(\mathbf{r})}{|\mathbf{r} - \mathbf{r}'|}
+	\right\} x d^3 \mathbf{r} = 0
+\end{equation}
+Likewise the third term is also zero.
+\begin{equation}
+	\int \left\{ \frac{\partial}{\partial z} \frac{J_z(\mathbf{r})}{|\mathbf{r} - \mathbf{r}'|}
+	\right\} x d^3 \mathbf{r} = 0
+\end{equation}
+Then Eq. \eqref{int div J/|r-r'| x d^3r} reduces to
+\begin{equation}
+	\int \left\{ \nabla \cdot \frac{\mathbf{J}(\mathbf{r})}{|\mathbf{r} - \mathbf{r}'|} \right\} x
+	d^3\mathbf{r} = - \int \frac{J_x(\mathbf{r})}{|\mathbf{r} - \mathbf{r}'|} d^3 \mathbf{r}
+\end{equation}
+The $y$ and $z$ components can be evaluated correspondingly.
+\begin{align}
+	\int \left\{ \nabla \cdot \frac{\mathbf{J}(\mathbf{r})}{|\mathbf{r} - \mathbf{r}'|} \right\} y
+	d^3\mathbf{r} = - \int \frac{J_y(\mathbf{r})}{|\mathbf{r} - \mathbf{r}'|} d^3 \mathbf{r} \\
+	\int \left\{ \nabla \cdot \frac{\mathbf{J}(\mathbf{r})}{|\mathbf{r} - \mathbf{r}'|} \right\} z
+	d^3\mathbf{r} = - \int \frac{J_z(\mathbf{r})}{|\mathbf{r} - \mathbf{r}'|} d^3 \mathbf{r}
+\end{align}
+Combining the three equations above, Eq. \eqref{T_net somewhat simplified} simplifies to
+\begin{equation}
+	\mathbf{T}_\text{net} = \int \int \frac{\mathbf{J}(\mathbf{r})}{|\mathbf{r} - \mathbf{r}'|} \times
+	\mathbf{J}(\mathbf{r}') d^3\mathbf{r} d^3\mathbf{r}'
+\end{equation}
+This integral is zero as the function inside the integral changes sign when $\mathbf{r}$ and
+$\mathbf{r}'$ are interchanged.
+\begin{equation}
+	\mathbf{T}_\text{net} = \mathbf{0}
+\end{equation}
+
+\section{Remarks}
+We have successfully proven that conservation of linear and angular momentum holds true for
+magnetostatics. But how does it help us understand the technologies we use everyday? Well, think of
+an electric motor. When the motor generates torque, is there an equal and opposite reaction
+involved? The motor is not exactly a magnetostatic system as the loop of wires inside the motor
+rotates, creating a time-varying current density. But we can approximate it as a system where
+Biot-Savant law is applicable. This is because we can ignore the relativistic effects as the time it
+takes for light to traverse the body of the motor is negligibly small compared to the time we take
+to observe the system. To be specific we can approximate the retarded time as the real time
+\cite{Griffiths}. The continuity equation also holds as the wire is an electrically neutral system.
+And the magnetic field of the magnet can be approximated as originating from microscopic current
+loops. Thus we can say that there is indeed an equal and opposite torque applied to the support that
+holds the motor. Our proof also demonstrates that when a magnet is repelled or pulled by another
+magnet linear and angular momentum of the entire system is conserved.
+
+\section{Author Declaration Section}
+The authors have no conflicts to disclose.
+
+\begin{thebibliography}{1}
+	\bibitem{Griffiths} David J. Griffiths, \textit{Introduction to Electrodynamics}, 4th Ed. (Cambridge
+		University Press, 2017), p.~231, 221, 222, 445.
+\end{thebibliography}
+
+\end{document}

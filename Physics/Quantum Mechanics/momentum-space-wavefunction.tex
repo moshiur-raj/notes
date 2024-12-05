@@ -1,0 +1,139 @@
+\documentclass[a4paper, 11pt]{article}
+
+\usepackage[a4paper, width=150mm, top=25mm, bottom=25mm, headheight=10mm]{geometry}
+\usepackage{fancyhdr}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{1.2pt}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[R]{\leftmark}
+\fancyfoot{}
+\fancyfoot[R]{page \thepage}
+\fancypagestyle{sectionpagestyle}{
+	\fancyhead{}
+	\fancyfoot{}
+	\fancyfoot[R]{page \thepage}
+}
+
+\usepackage{titlesec}
+\titleformat{\section}
+	{\normalfont\Large\bfseries}{\thesection}{1em}{}[{\titlerule}]
+
+\usepackage{bookmark}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks   = true,
+	urlcolor     = black,
+	linkcolor    = black,
+	citecolor    = black,
+	bookmarksnumbered,
+	pdfencoding=auto,
+	psdextra
+}
+
+\usepackage{amsmath}
+
+\title{Momentum Space Wavefunction}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+A n-body wavefunction is represented by the function,
+\begin{equation}
+	\Psi(\vec{r}_1, \vec{r}_2, \ldots, \vec{r}_N, t)
+\end{equation}
+
+We will now impose the boundary condition that the particles are all in a box and then we will take
+the limit as the size of the box goes to infinity. Let the box, $\mathcal{B}$, be defined by the conditions,
+\begin{equation}
+\begin{aligned}
+	0 < x - x_0 < L_x \\
+	0 < y - y_0 < L_y \\
+	0 < z - z_0 < L_z \\
+\end{aligned}
+\end{equation}
+Here $x_0, y_0, z_0$ and $L_1, L_2, L_3$ are constants. The volume of the box is, $V = L_x L_y L_z$.
+
+Now the fourier series of the wavefunction is given by,
+\begin{align}
+	\Psi &= \sum_{n_1, n_2, \ldots, n_N = -\infty}^{+\infty} C_{n_1, n_2, \ldots, n_N} \exp \left[ i \sum_{j = 1}^N 2\pi n_j \left( \frac{x_j}{L_x} + \frac{y_j}{L_y} + \frac{z_j}{L_z}\right) \right] \\
+	&= \sum_{n_1 , n_2, \ldots, n_N = -\infty}^{+\infty} C_{n_1, n_2, \ldots, n_N} \exp \left[ i \sum_{j = 1}^N \vec{k}_{n_j} \cdot \vec{r_j} \right]
+\end{align}
+Where,
+\begin{equation}
+	C_{n_1, n_2, \ldots, n_N} = \frac{1}{V^N} \int_{\mathcal{B}^N} \Psi \exp \left[ -i \sum_{j =
+	1}^N \vec{k}_{n_j} \cdot \vec{r_j} \right] d\tau_r
+\end{equation}
+
+The momentum operator for the $j$'th particle is defined as,
+\begin{equation}
+	\hat{p}_j = -i \hbar \nabla_j
+\end{equation}
+This operator has eigenfunctions of the form $\exp( \frac{i}{\hbar} \vec{p}_{n_j} \cdot \vec{r} )$
+for an eigenvalue $\vec{p}_{n_j}$. The total wavefunction is then,
+\begin{equation}
+	f_{n_1, n_2, \ldots, n_N} = A \prod_{j = 1}^N \exp( \frac{i}{\hbar} \vec{p}_{n_j} \cdot
+	\vec{r}_j )
+\end{equation}
+Normalizing the wavefunction in the region $\mathcal{B}^N$ we get, $A = V^{-N/2}$.
+
+We can now express $\Phi$ as a superposition of normalized momentum states.
+\begin{equation}
+	\Psi = \sum C_{n_1, n_2, \ldots, n_N} V^{N/2} f_{n_1, n_2, \ldots, n_N}
+\end{equation}
+Where,
+\begin{equation}
+	\vec{p}_{n_j} = \hbar \vec{k}_{n_j}
+\end{equation}
+
+Now,
+\begin{equation}
+	d \vec{p}_{n_j} = \vec{p}_{n_j+1} - \vec{p}_{n_j} = 2\pi \left( 1/L_x, 1/L_y, 1/L_z \right)
+\end{equation}
+Hence,
+\begin{equation}
+	d^3 \vec{p}_{n_j} = (2\pi)^3 / V
+\end{equation}
+Thus,
+\begin{equation}
+	d\tau_p = \prod d^3 \vec{p}_{n_j} = (2\pi)^{3N} / V^N
+\end{equation}
+
+The probability of measuring the momentum of the particles as $\vec{p}_{n_1}, \vec{p}_{n_2}, \ldots,
+ \vec{p}_{n_j}$ respectively is then,
+ \begin{align*}
+	 \left| \sum C_{n_1, n_2, \ldots, n_N} V^{N/2} \right|^2 &= \frac{1}{V^N} \left|
+	 \int_{\mathcal{B}^N} \Psi \exp \left[ -i \sum_{j = 1}^N \vec{k}_{n_j} \cdot \vec{r_j} \right]
+	 d\tau_r \right|^2 \\
+	 &= 1/(2\pi)^{3N} \left| \int_{\mathcal{B}^N} \Psi \exp \left[ -i \sum_{j = 1}^N \vec{k}_{n_j}
+	 \cdot \vec{r_j} \right] d\tau_r \right|^2 d\tau_p
+ \end{align*}
+We define a new function,
+\begin{equation}
+	\Phi(p_{n_1}, p_{n_2}, \ldots, p_{n_N}) = \frac{1}{(2\pi)^{3N/2}} \int_{\mathcal{B}^N} \Psi \exp
+	\left[ -i \sum_{j = 1}^N \vec{k}_{n_j} \cdot \vec{r_j} \right] d\tau_r
+\end{equation}
+Then,
+\begin{equation}
+	C_{n_1, n_2, \ldots, n_N} = (2\pi)^{3N/2} \frac{1}{V^N} \Phi(p_{n_1}, p_{n_2}, \ldots, p_{n_N})
+	= \frac{1}{(2\pi)^{3N/2}} \Phi(p_{n_1}, p_{n_2}, \ldots, p_{n_N}) d\tau_p
+\end{equation}
+And,
+\begin{equation}
+	\Psi = \sum \Phi(p_{n_1}, p_{n_2}, \ldots, p_{n_N}) \exp \left[ i \sum_{j = 1}^N \frac{1}{\hbar}
+	\vec{p}_{n_j} \cdot \vec{r_j} \right] d\tau_p
+\end{equation}
+
+Finally taking the limit as $x_0, y_0, z_0 \to -\infty$ and $L_x, L_y, L_z \to +\infty$ we get,
+\begin{equation}
+	\begin{aligned}
+		\Psi = \frac{1}{(2\pi)^{3N/2}} \int_{\mathcal{R}^N} \Phi \exp \left[ i \sum_{j = 1}^N \frac{1}{\hbar} \vec{p}_j \cdot \vec{r_j} \right] d\tau_p \\
+		\Phi = \frac{1}{(2\pi)^{3N/2}} \int_{\mathcal{R}^N} \Psi \exp \left[ -i \sum_{j = 1}^N \frac{1}{\hbar} \vec{p}_j \cdot \vec{r_j} \right] d\tau_r
+	\end{aligned}
+\end{equation}
+With the probability density of momentum being $|\Phi|^2$.
+
+\end{document}

@@ -1,0 +1,119 @@
+\documentclass[a4paper, 11pt]{article}
+
+\usepackage[a4paper, width=150mm, top=25mm, bottom=25mm, headheight=10mm]{geometry}
+\usepackage{fancyhdr}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{1.2pt}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[R]{\leftmark}
+\fancyfoot{}
+\fancyfoot[R]{page \thepage}
+\fancypagestyle{sectionpagestyle}{
+	\fancyhead{}
+	\fancyfoot{}
+	\fancyfoot[R]{page \thepage}
+}
+
+\usepackage{titlesec}
+\titleformat{\section}
+	{\normalfont\Large\bfseries}{\thesection}{1em}{}[{\titlerule}]
+
+\usepackage{bookmark}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks   = true,
+	urlcolor     = black,
+	linkcolor    = black,
+	citecolor    = black,
+	bookmarksnumbered,
+	pdfencoding=auto,
+	psdextra
+}
+
+\usepackage{amsmath}
+\usepackage{braket}
+
+\begin{document}
+
+\begin{center}
+	\Large\bfseries When is Energy Quantized
+	\vspace{.15em}\hrule
+\end{center}
+
+In quantum mechanics energy of an eigenstate is determined by solving the time independent
+Schrodinger's equation.
+\begin{equation}
+	H \Psi = E \Psi
+\end{equation}
+Solving this equation we will get different eigenfunctions for different values of the energy.
+Normalization of the wavefunction results in energy having discrete values. If the eigenstates are
+however not normalizable then we usually take the integral of the eigenstates and in this case the
+energy becomes continuous. For example the bound states of hydrogen atom are normalizable and has
+discrete energies but the states with non-negative energy are not normalizable and has continous
+energy (for example in scattering theory). We will now prove this fact.
+\medskip
+
+Let $\Psi_0$ be the solution of Schrodinger's equation with energy $E_0$ for $q = q_0$. If the
+energy is continous then we can express the energy as a function of some parameters $q = (q_1, q_2,
+\ldots, q_n)$. Then,
+\begin{equation}
+	H \Psi(\vec{r}, q) = E(q) \Psi(\vec{r}, q) \label{eigenvalue eqn 2}
+\end{equation}
+We can expand $E$ and $\Psi$ around $E_0$ and $\Psi_0$ respectively as a taylor series expansion.
+\begin{align}
+	E(q) &= E_0 + \sum_i (\partial_i E)_{q_0} \, \Delta q_i + \sum_i \frac{1}{2} (\partial_i^2
+	E)_{q_0} \, (\Delta q_i)^2 + \sum_{i \neq j} (\partial_i \partial_j E)_{q_0} \, \Delta q_i
+	\Delta q_j + \ldots \label{taylor series E} \\
+	\Psi( \vec{r}, q) &= \Psi_0 + \sum_i (\partial_i \Psi)_{q_0} \, \Delta q_i + \sum_i \frac{1}{2}
+	(\partial_i^2 \Psi)_{q_0} \, (\Delta q_i)^2 + \sum_{i \neq j} (\partial_i \partial_j \Psi)_{q_0}
+	\, \Delta q_i \Delta q_j + \ldots \label{taylor series Psi}
+\end{align}
+Where,
+\begin{equation}
+	\partial_i^m \partial_j^{n} \cdots \partial_k^{\, l} \, \mathcal{F} =
+	\frac{\partial^m}{{\partial q_i}^m} \frac{\partial^n}{{\partial q_j}^n} \cdots
+	\frac{\partial^l}{{\partial q_k}^l} \, \mathcal{F} = \mathcal{F}_{\, i j \ldots k}^{\, m n
+	\ldots l}
+\end{equation}
+The hamiltonian is independent of $q$. Differentiating both sides of \eqref{eigenvalue eqn 2} we
+get,
+\begin{equation}
+	H \Psi_{i j \ldots k}^{m n \ldots l} = E_{i j \ldots k}^{m n \ldots l} \Psi + E
+	\Psi_{i j \ldots k}^{m n \ldots l}
+\end{equation}
+Evaluating this expression at $q = q_0$,
+\begin{equation}
+	H (\Psi_{i j \ldots k}^{m n \ldots l})_{q_0} = (E_{i j \ldots k}^{m n \ldots l})_{q_0} \Psi_0 +
+	E_0 (\Psi_{i j \ldots k}^{m n \ldots l})_{q_0}
+	\label{differentiating eigenvalue equation at q_0}
+\end{equation}
+If the wavefunction $\Psi_0$ is normalizable and it's derivatives go to zero fast enough we can
+premultiply the equation above with ${\Psi_0}^*$ and take the integral over all space.
+\begin{alignat*}{2}
+	&\braket{ \Psi_0 | H (\Psi_{i j \ldots k}^{m n \ldots l})_{q_0} } &&= \braket{ \Psi_0 | (E_{i j
+	\ldots k}^{m n \ldots l})_{q_0} \Psi_0 } + \braket{ \Psi_0 | E_0 (\Psi_{i j \ldots k}^{m n
+	\ldots l})_{q_0} } \\
+	\implies &\braket{ H \Psi_0 | (\Psi_{i j \ldots k}^{m n \ldots l})_{q_0} } &&= (E_{i j \ldots
+	k}^{m n \ldots l})_{q_0} \braket{ \Psi_0 | \Psi_0 } + E_0 \braket{ \Psi_0 | (\Psi_{i j \ldots
+	k}^{m n \ldots l})_{q_0} } \\
+	\implies &\braket{ E_0 \Psi | (\Psi_{i j \ldots k}^{m n \ldots l})_{q_0} } &&= (E_{i j \ldots
+	k}^{m n \ldots l})_{q_0} + E_0 \braket{ \Psi_0 | (\Psi_{i j \ldots k}^{m n \ldots l})_{q_0} } \\
+	\implies &(E_{i j \ldots k}^{m n \ldots l})_{q_0} = 0
+\end{alignat*}
+We have now shown that all the derivatives of $E$ at $q_0$ is zero. Using this value in the taylor
+series expansion in \eqref{taylor series E} we arrive at,
+\begin{equation}
+	E(q) = E_0
+\end{equation}
+Setting the value of the derivatives of $E$ to zero in \eqref{differentiating eigenvalue equation at
+q_0},
+\begin{equation}
+	H (\Psi_{i j \ldots k}^{m n \ldots l})_{q_0} = E_0 (\Psi_{i j \ldots k}^{m n \ldots l})_{q_0}
+\end{equation}
+Which implies that $(\Psi_{i j \ldots k}^{m n \ldots l})_{q_0}$ belongs to the eigenspace for energy
+eigenvalue $E_0$. Then according to \eqref{taylor series Psi} $\Psi(\vec{r}, q)$ does not leave the
+eigenspace as we are simply doing a linear sum. Finally we have shown that energy cannot be
+continous around normalizable wavefunctions.
+
+\end{document}
