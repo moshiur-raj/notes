@@ -1,0 +1,79 @@
+\documentclass[a4paper, 11pt]{article}
+
+\usepackage[a4paper, width=150mm, top=25mm, bottom=25mm, headheight=10mm]{geometry}
+\usepackage{fancyhdr}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{1.2pt}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[R]{\leftmark}
+\fancyfoot{}
+\fancyfoot[R]{page \thepage}
+\fancypagestyle{sectionpagestyle}{
+	\fancyhead{}
+	\fancyfoot{}
+	\fancyfoot[R]{page \thepage}
+}
+
+\usepackage{titlesec}
+\titleformat{\section}
+	{\normalfont\Large\bfseries}{\thesection}{1em}{}[{\titlerule}]
+
+\usepackage{bookmark}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks   = true,
+	urlcolor     = black,
+	linkcolor    = black,
+	citecolor    = black,
+	bookmarksnumbered,
+	pdfencoding=auto,
+	psdextra
+}
+
+\newcommand\labelthis[1]{\addtocounter{equation}{1}\phantomsection\tag{\theequation}\label{#1}}
+\newcommand\mtx[1]{\begin{pmatrix} #1 \end{pmatrix}}
+
+\usepackage{amsmath}
+\usepackage{bbold}
+\usepackage{tikz}
+\usetikzlibrary{3d}
+\usetikzlibrary{arrows.meta, arrows}
+
+% \usepackage[active,tightpage]{preview}
+% \PreviewEnvironment{tikzpicture}
+% \setlength\PreviewBorder{5pt}%
+
+\DeclareMathOperator{\colm}{colm}
+
+\begin{document}
+
+\begin{center}
+	\Large\bfseries Linear Transformation of Cross Product
+	\vspace{.15em}\hrule
+\end{center}
+
+We will prove the following identity
+\begin{equation}
+	M \vec a \times M \vec b = \det (M) (M^{-1})^T \vec a \times \vec b
+\end{equation}
+Where $M$ is a $3 \times 3$ invertible matrix. The definition of cross product leads to
+\begin{equation}
+	(M \vec a \times M \vec b) \cdot \vec e = \det ( \colm(M \vec a, M \vec b, \vec e ))
+\end{equation}
+Where $\vec e$ is a vector used for determining the components and $\colm(M \vec a, M \vec b, \hat
+e)$ represents a matrix in terms of it's column vectors. Now
+\begin{align*}
+	\det (\colm(M \vec a, M \vec b, \vec e)) &= \det ( M \colm(\vec a, \vec b, M^{-1} \vec e ) ) \\
+	&= \det (M) \det(\colm(\vec a, \vec b, M^{-1} \vec e)) \\
+	&= \det (M) [ M^{-1} \vec e \cdot (\vec a \times \vec b) ] \\
+	&= \det (M) (M^{-1} \vec e)^T (\vec a \times \vec b) \\
+	&= \det(M) (\vec e)^T M^{-1} (\vec a \times \vec b) \\
+	&= \det(M) [M^{-1} (\vec a \times \vec b)] \cdot \vec e
+\end{align*}
+Since this is true for every $\vec e$ we have proven the identity.
+
+If $M$ is a rotation then it's transpose is it's inverse and has a determinant of unity. In that case
+we can use the identity to show that the cross product is invariant under rotation.
+
+\end{document}
