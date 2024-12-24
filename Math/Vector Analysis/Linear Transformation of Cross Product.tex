@@ -59,17 +59,18 @@ We will prove the following identity
 \end{equation}
 Where $M$ is a $3 \times 3$ invertible matrix. The definition of cross product leads to
 \begin{equation}
-	(M \vec a \times M \vec b) \cdot \vec e = \det ( \colm(M \vec a, M \vec b, \vec e ))
+	\vec e \cdot (M \vec a \times M \vec b) = \det ( \colm(\vec e, M \vec a, M \vec b))
 \end{equation}
-Where $\vec e$ is a vector used for determining the components and $\colm(M \vec a, M \vec b, \hat
-e)$ represents a matrix in terms of it's column vectors. Now
+Where $\vec e$ is a vector used for determining the components and $\colm(\vec e, M \vec a, M \vec
+b)$ represents a matrix in terms of it's column vectors. Now
 \begin{align*}
-	\det (\colm(M \vec a, M \vec b, \vec e)) &= \det ( M \colm(\vec a, \vec b, M^{-1} \vec e ) ) \\
-	&= \det (M) \det(\colm(\vec a, \vec b, M^{-1} \vec e)) \\
-	&= \det (M) [ M^{-1} \vec e \cdot (\vec a \times \vec b) ] \\
-	&= \det (M) (M^{-1} \vec e)^T (\vec a \times \vec b) \\
-	&= \det(M) (\vec e)^T M^{-1} (\vec a \times \vec b) \\
-	&= \det(M) [M^{-1} (\vec a \times \vec b)] \cdot \vec e
+	&\det (\vec e, \colm(M \vec a, M \vec b)) \\
+	=& \det ( M \colm(M^{-1} \vec e, \vec a, \vec b) ) \\
+	=& \det (M) \det(\colm(M^{-1} \vec e, \vec a, \vec b)) \\
+	=& \det (M) [ (M^{-1} \vec e) \cdot (\vec a \times \vec b) ] \\
+	=& \det (M) (M^{-1} \vec e)^T (\vec a \times \vec b) \\
+	=& \det(M) (\vec e)^T (M^{-1})^T (\vec a \times \vec b) \\
+	=& \, \vec e \cdot [ \det(M) (M^{-1})^T (\vec a \times \vec b) ]
 \end{align*}
 Since this is true for every $\vec e$ we have proven the identity.
 
